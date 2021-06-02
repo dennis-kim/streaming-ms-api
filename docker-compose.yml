@@ -1,0 +1,7 @@
+version: '3.0'
+services: 
+    streaming-ms-api:
+        image: streaming-ms-api
+        container_name: streaming-ms-api
+        ports: 
+            - "8080:8080"

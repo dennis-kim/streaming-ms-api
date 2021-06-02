@@ -1,14 +1,19 @@
-from flask import Flask, request, jsonify
+from flask import Flask
+import json
+import datetime
 import dbConnection as db
 
 app = Flask (__name__)
+
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
 
 @app.route('/contents/<int:base_id>')
 def calling(base_id):
     query = """
         SELECT 
             contents_name
-            , modify_date 
         FROM 
             contents c 
                 INNER JOIN base_dir base 
@@ -17,10 +22,20 @@ def calling(base_id):
         WHERE 
             base.base_dir_id = %s
     """
-
     value = (base_id)
     list = db.selectOneQuery(query, value)
-    return 'good!!'
+    jsonStr = json.dumps(list, ensure_ascii=False)
+    #for file in list:
+        #convert = json.dumps(file[0])
+        #print (convert)
+        #return file[0]
+    return jsonStr
+
+@app.route('/test')
+def test():
+    aList = (41, 58, 63)
+    jsonStr = json.dumps(aList)
+    return jsonStr
 
 if __name__ == "__main__":
-    app.run(debug=True, host='127.0.0.1', port=8080)
+    app.run(debug=True, host='0.0.0.0', port=8080)
