@@ -1,6 +1,9 @@
 version: '3.0'
 services: 
     streaming-ms-api:
+        build:
+            dockerfile: Dockerfile
+            context: ./
         image: streaming-ms-api
         container_name: streaming-ms-api
         ports: 
