@@ -1,6 +1,6 @@
 import pymysql
 def connector():
-    conn = pymysql.connect(host='118.34.135.195', port=43306, user='streaming', password='streaming12#', database='STREAMING_DB',charset='utf8')
+    conn = pymysql.connect(host='172.19.0.2', port=43306, user='streaming', password='streaming12#', database='STREAMING_DB',charset='utf8')
     return conn
 def selectOneQuery(query, value):
     conn = connector()
