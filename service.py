@@ -23,6 +23,7 @@ def calling(base_id):
                         AND base.env = 'prd' 
         WHERE 
             base.base_dir_id = %s
+        ORDER BY modify_date DESC
     """
     value = (base_id)
     list = db.selectOneQuery(query, value)
