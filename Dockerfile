@@ -4,4 +4,4 @@ WORKDIR /streaming-ms-api
 COPY . .
 RUN pip install -r requirements.txt
 
-CMD python ./service.py
+CMD python ./index.py
