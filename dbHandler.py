@@ -1,6 +1,6 @@
 import dbConnection as db
 
-def getContents(base_id, sort, order):
+def getContents(base_id, keyword, sort, order, size, page):
     query = """
         SELECT 
             contents_name
@@ -11,7 +11,11 @@ def getContents(base_id, sort, order):
                         AND base.env = 'prd' 
         WHERE 
             base.base_dir_id = %s
-            ORDER BY %s %s
-    """ % (base_id, sort, order)
+            AND c.contents_name LIKE %s
+        ORDER BY %s %s
+        LIMIT %s
+        OFFSET %s
+    """ % (base_id, keyword, sort, order, size, page)
+    print (query)
 
     return db.selectQuery(query)
