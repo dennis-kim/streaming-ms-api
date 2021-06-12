@@ -31,6 +31,7 @@ def getContents(base_id):
     list = dbHandler.getContents(base_id, keyword, sort, order, size, page)
     jsonStr = json.dumps(list, ensure_ascii=False)
 
+    # 소스코드 업데이트
     return jsonStr
 
 if __name__ == "__main__":
