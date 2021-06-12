@@ -16,6 +16,32 @@ def getContents(base_id, keyword, sort, order, size, page):
         LIMIT %s
         OFFSET %s
     """ % (base_id, keyword, sort, order, size, page)
-    print (query)
+
+    return db.selectQuery(query)
+
+
+def getComments(size, page):
+    query = """
+        SELECT 
+	        message, 
+	        create_date 
+        FROM 
+	        comment
+        ORDER BY create_date DESC
+        LIMIT %s
+        OFFSET %s
+    """ % (size, page)
+    print(query)
+
+    return db.selectQuery(query)
+
+def postComments(comment):
+    query = """
+        INSERT 
+        INTO 
+            comment (message)
+        VALUES (%s)
+    """ % (comment)
+    print(query)
 
     return db.selectQuery(query)
