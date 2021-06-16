@@ -1,8 +1,7 @@
 from flask import request
 
 # 장르
-def sort():
-    sort = request.args.get('sort')
+def sort(sort):
     try:
         sort = str.lower(sort)
         if sort not in ('modify_date', 'contents_name'):
@@ -12,8 +11,7 @@ def sort():
     return sort
 
 # 정렬
-def order():
-    order = request.args.get('order')
+def order(order):
     try:
         order = str.lower(order)
         if order not in ('asc', 'desc'):
@@ -23,32 +21,29 @@ def order():
     return order
 
 # 검색
-def keyword():
-    keyword = request.args.get('keyword')
+def keyword(keyword):
     if keyword == None:
         keyword = ''
     keyword = '"%' + keyword.strip() + '%"'
     return keyword
 
 # 페이지당 목록 수
-def size():
-    size = request.args.get('size')
+def size(size):
     try:
         size = int(size)
-        if size < 0:
+        if size < 1:
             size = 10
     except:
         size = 10
     return size
 
 # 페이지
-def page(size):
-    page = request.args.get('page')
+def page(page, getSize):
     try:
         page = int(page)
         if page < 1:
             page = 1
     except:
         page = 1
-    page = (page -1) *size
+    page = (page -1) *getSize
     return page
