@@ -8,27 +8,22 @@ CORS(app)
 @app.route('/contents/<int:base_id>')
 def getContents(base_id):
     # 장르
-    sort = request.args.get('sort')
-    sort = queryString.sort()
+    getSort = queryString.sort(request.args.get('sort'))
     
     # 정렬
-    order = request.args.get('order')
-    order = queryString.order()
+    getOrder = queryString.order(request.args.get('order'))
 
     # 검색
-    keyword = request.args.get('keyword')
-    keyword = queryString.keyword()
+    getKeyword = queryString.keyword(request.args.get('keyword'))
 
     # 페이지당 목록 수
-    size = request.args.get('size')
-    size = queryString.size()
+    getSize = queryString.size(request.args.get('size'))
 
     # 페이지
-    page = request.args.get('page')
-    page = queryString.page(size)
+    getPage = queryString.page(request.args.get('page'), getSize)
 
-
-    list = dbHandler.getContents(base_id, keyword, sort, order, size, page)
+    # 결과 취합
+    list = dbHandler.getContents(base_id, getKeyword, getSort, getOrder, getSize, getPage)
     jsonStr = json.dumps(list, ensure_ascii=False)
 
     return jsonStr
