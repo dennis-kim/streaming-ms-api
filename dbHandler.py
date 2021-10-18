@@ -3,20 +3,32 @@ import dbConnection as db
 def getContents(base_id, keyword, sort, order, size, page):
     query = """
         SELECT 
-            contents_name
+            c.contents_name
+            , base.dir_name as category_name
         FROM 
             contents c 
                 INNER JOIN base_dir base 
                         ON base.base_dir_id = c.base_dir_id 
                         AND base.env = 'prd' 
-        WHERE 
+        WHERE """
+
+    if base_id == 0:
+        query += """
+            base.base_dir_id >= %s
+            """ % (base_id)
+    else:
+        query += """
             base.base_dir_id = %s
-            AND c.contents_name LIKE %s
+            """ % (base_id)
+
+    query += """
+        AND c.contents_name LIKE %s
         ORDER BY %s %s
         LIMIT %s
         OFFSET %s
-    """ % (base_id, keyword, sort, order, size, page)
+    """ % (keyword, sort, order, size, page)
 
+    print(query)
     return db.selectQuery(query)
 
 
