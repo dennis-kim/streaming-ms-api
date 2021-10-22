@@ -5,6 +5,7 @@ def getContents(base_id, keyword, sort, order, size, page):
         SELECT 
             c.contents_name
             , base.dir_name as category_name
+            , c.full_path as contents_path
         FROM 
             contents c 
                 INNER JOIN base_dir base 
