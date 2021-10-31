@@ -4,6 +4,7 @@ def getContents(base_id, keyword, sort, order, size, page):
     query = """
         SELECT 
             c.contents_name
+            , c.actors
             , base.dir_name as category_name
             , c.full_path as contents_path
         FROM 
@@ -29,7 +30,6 @@ def getContents(base_id, keyword, sort, order, size, page):
         OFFSET %s
     """ % (keyword, sort, order, size, page)
 
-    print(query)
     return db.selectQuery(query)
 
 
@@ -44,7 +44,6 @@ def getComments(size, page):
         LIMIT %s
         OFFSET %s
     """ % (size, page)
-    print(query)
 
     return db.selectQuery(query)
 
@@ -55,6 +54,5 @@ def postComments(comment):
             comment (message)
         VALUES (%s)
     """ % (comment)
-    print(query)
 
     return db.selectQuery(query)
