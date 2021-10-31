@@ -24,7 +24,7 @@ def getContents(base_id):
 
     # 결과 취합
     list = dbHandler.getContents(base_id, getKeyword, getSort, getOrder, getSize, getPage)
-    jsonStr = json.dumps(list, ensure_ascii=False)
+    jsonStr = json.dumps(list, ensure_ascii=False, default=str)
 
     return jsonStr
 

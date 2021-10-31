@@ -7,6 +7,7 @@ def getContents(base_id, keyword, sort, order, size, page):
             , c.actors
             , base.dir_name as category_name
             , c.full_path as contents_path
+            , c.modify_date
         FROM 
             contents c 
                 INNER JOIN base_dir base 
