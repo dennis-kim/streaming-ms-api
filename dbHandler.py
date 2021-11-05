@@ -4,6 +4,7 @@ def getContents(base_id, keyword, sort, order, size, page):
     query = """
         SELECT 
             c.contents_name
+            , c.genre
             , c.actors
             , base.dir_name as category_name
             , c.full_path as contents_path
