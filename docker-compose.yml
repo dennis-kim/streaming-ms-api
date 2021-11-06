@@ -7,4 +7,4 @@ services:
         image: streaming-ms-api
         container_name: streaming-ms-api
         ports: 
-            - "9000:9000"
+            - "9001:9001"
