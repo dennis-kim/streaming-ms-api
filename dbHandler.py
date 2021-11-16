@@ -3,7 +3,8 @@ import dbConnection as db
 def getContents(base_id, keyword, sort, order, size, page):
     query = """
         SELECT 
-            c.contents_name
+            IFNULL(c.contents_name, c.full_contents_name) as contents_name
+            , c.sub_contents_name
             , c.genre
             , c.actors
             , base.dir_name as category_name
@@ -27,7 +28,7 @@ def getContents(base_id, keyword, sort, order, size, page):
             """ % (base_id)
 
     query += """
-        AND c.contents_name LIKE %s
+        AND c.full_contents_name LIKE %s
         ORDER BY %s %s
         LIMIT %s
         OFFSET %s
