@@ -36,6 +36,21 @@ def getContents(base_id, keyword, sort, order, size, page):
 
     return db.selectQuery(query)
 
+def getGenres(base_id):
+    query = """
+        SELECT 
+            genre_id
+            ,genre
+        FROM 
+            genre 
+        WHERE 
+            base_dir_id = %s
+        
+        ORDER BY count DESC
+        """ % (base_id)
+    print(query)
+    return db.selectQuery(query)
+
 
 def getComments(size, page):
     query = """

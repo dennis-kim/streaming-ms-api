@@ -28,6 +28,14 @@ def getContents(base_id):
 
     return jsonStr
 
+@app.route('/genres/<int:base_id>')
+def getGenres(base_id):
+    list = []
+    if(base_id > 0):
+        list = dbHandler.getGenres(base_id)
+
+    jsonStr = json.dumps(list, ensure_ascii=False, default=str)
+    return jsonStr
 
 @app.route('/comments', methods=['GET'])
 def getComments():
