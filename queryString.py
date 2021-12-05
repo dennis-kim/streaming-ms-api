@@ -1,6 +1,16 @@
-from flask import request
 
-# 장르
+# 시리즈
+def series(series):
+    if series is not None:
+        try:
+            int(series)
+            return series
+        except:
+            return 0
+    else:
+        return None
+
+# 정렬 타입
 def sort(sort):
     try:
         sort = str.lower(sort)
@@ -10,7 +20,7 @@ def sort(sort):
         sort = 'modify_date'
     return sort
 
-# 정렬
+# 정렬 순서
 def order(order):
     try:
         order = str.lower(order)

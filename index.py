@@ -7,10 +7,14 @@ CORS(app)
  
 @app.route('/contents/<int:base_id>')
 def getContents(base_id):
-    # 장르
+
+    # 시리즈 번호
+    getSeries = queryString.series(request.args.get('series'))
+
+    # 정렬 타입
     getSort = queryString.sort(request.args.get('sort'))
     
-    # 정렬
+    # 정렬 순서
     getOrder = queryString.order(request.args.get('order'))
 
     # 검색
@@ -23,7 +27,7 @@ def getContents(base_id):
     getPage = queryString.page(request.args.get('page'), getSize)
 
     # 결과 취합
-    list = dbHandler.getContents(base_id, getKeyword, getSort, getOrder, getSize, getPage)
+    list = dbHandler.getContents(base_id, getSeries, getKeyword, getSort, getOrder, getSize, getPage)
     jsonStr = json.dumps(list, ensure_ascii=False, default=str)
 
     return jsonStr

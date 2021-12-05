@@ -1,6 +1,6 @@
 import dbConnection as db
 
-def getContents(base_id, keyword, sort, order, size, page):
+def getContents(base_id, series, keyword, sort, order, size, page):
     query = """
         SELECT 
             IFNULL(c.contents_name, c.full_contents_name) as contents_name
@@ -16,6 +16,9 @@ def getContents(base_id, keyword, sort, order, size, page):
                 INNER JOIN base_dir base 
                         ON base.base_dir_id = c.base_dir_id 
                         AND base.env = 'prd' 
+                LEFT JOIN series s
+                        ON s.base_dir_id = c.base_dir_id
+                        AND s.series_id = c.series_id
         WHERE """
 
     if base_id == 0:
@@ -26,6 +29,10 @@ def getContents(base_id, keyword, sort, order, size, page):
         query += """
             base.base_dir_id = %s
             """ % (base_id)
+    if series is not None:
+        query += """
+            AND c.series_id = %s
+            """ % (series)
 
     query += """
         AND c.full_contents_name LIKE %s
@@ -33,6 +40,8 @@ def getContents(base_id, keyword, sort, order, size, page):
         LIMIT %s
         OFFSET %s
     """ % (keyword, sort, order, size, page)
+
+    print(query)
 
     return db.selectQuery(query)
 
