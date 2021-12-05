@@ -31,7 +31,7 @@ def getContents(base_id, series, keyword, sort, order, size, page):
             """ % (base_id)
     if series is not None:
         query += """
-            AND c.series_id = %s
+            AND s.series_id = %s
             """ % (series)
 
     query += """
