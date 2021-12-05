@@ -37,6 +37,15 @@ def getGenres(base_id):
     jsonStr = json.dumps(list, ensure_ascii=False, default=str)
     return jsonStr
 
+@app.route('/series/<int:base_id>')
+def getSeries(base_id):
+    list = []
+    if(base_id > 0):
+        list = dbHandler.getSeries(base_id)
+
+    jsonStr = json.dumps(list, ensure_ascii=False, default=str)
+    return jsonStr
+
 @app.route('/comments', methods=['GET'])
 def getComments():
     # 페이지당 목록 수

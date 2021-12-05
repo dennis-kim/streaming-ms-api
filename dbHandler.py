@@ -51,6 +51,21 @@ def getGenres(base_id):
     print(query)
     return db.selectQuery(query)
 
+def getSeries(base_id):
+    query = """
+        SELECT 
+            series_id
+            , series_name
+        FROM 
+            series 
+        WHERE 
+            base_dir_id = %s
+        
+        ORDER BY series_name ASC
+        """ % (base_id)
+    print(query)
+    return db.selectQuery(query)    
+
 
 def getComments(size, page):
     query = """
