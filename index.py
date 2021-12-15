@@ -4,6 +4,28 @@ import json, dbHandler, queryString
 
 app = Flask (__name__)
 CORS(app)
+
+@app.route('/main/contents')
+def getMainContents():
+
+    result = {
+        0:[]
+        , 1:[]
+        , 2:[]
+        , 3:[]
+        , 4:[]
+        , 5:[]
+    }
+
+    size = queryString.size(request.args.get('size'))
+
+    for base_id in range(6):
+        print(base_id)
+        list = dbHandler.getContents(base_id, None, queryString.keyword(''), 'modify_date', 'desc', size, queryString.page(1, size))
+        result[base_id] = list
+
+    jsonStr = json.dumps(result, ensure_ascii=False, default=str)
+    return jsonStr
  
 @app.route('/contents/<int:base_id>')
 def getContents(base_id):
