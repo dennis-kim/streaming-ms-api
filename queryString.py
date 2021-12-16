@@ -2,17 +2,12 @@
 # 시리즈
 def series(series):
     try:
-        int(series)
-    except:
-        return None
-
-    if series is not None or int(series) == 0:
-        try:
-            int(series)
-            return series
-        except:
+        id = int(series)
+        if id > 0:
+            return id
+        else:
             return None
-    else:
+    except:
         return None
 
 # 정렬 타입
