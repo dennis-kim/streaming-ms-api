@@ -1,12 +1,17 @@
 
 # 시리즈
 def series(series):
-    if series is not None:
+    try:
+        int(series)
+    except:
+        return None
+
+    if series is not None or int(series) == 0:
         try:
             int(series)
             return series
         except:
-            return 0
+            return None
     else:
         return None
 
